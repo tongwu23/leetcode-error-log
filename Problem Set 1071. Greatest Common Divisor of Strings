@@ -1,0 +1,75 @@
+Problem Set 1071. Greatest Common Divisor of Strings
+
+class Solution {
+    public int gcdOfStrings(String str1, String str2) {
+    int gcdbase = 1; 
+    int str1Length = str1.length();
+    int str2Length = str2.length()
+    for (int i = 1 ; i < str1Length && i < str2Length; i++){
+        if (str1Length % i == 0 && str2Length % i == 0){
+            gcdbase = i
+            }
+        }
+    return gcdbase 
+    }
+    public Boolean rightOrWrong(String str1, String str2, int gcdbase){
+    if (str1 % gcdbase != 0 || str2 % gcdbase != 0){
+        return false 
+    }
+    int times1 = str1.length() / gcdbase;
+    int times2 = str2.length() / gcdbase;
+    String base = str1.substring(0, gcdbase);
+    for (i = 0; i < times1; i++){
+        string newstr1 = i * base
+    }
+    if (str1 != newstr1){
+        return false
+    }
+    for (i = 0; i < times2; i++){
+        string newstr2 = i * base
+    }
+    if (str2 != newstr2){
+        return false
+    }
+    }
+}
+
+Right answer corrected by Chat GPT 
+
+class Solution {
+    public String gcdOfStrings(String str1, String str2) {
+        if (!(str1 + str2).equals(str2+str1)){
+            return "";
+        }
+        int length1 = str1.length();
+        int length2 = str2.length();
+        int gcdLength = gcd(length1, length2);
+        String base = str1.substring(0, gcdLength);
+        if (rightOrWrong(str1, base) && rightOrWrong(str2, base)){
+            return base;
+        }else {
+            return ""; 
+        }
+    }
+    
+    public Boolean rightOrWrong(String str, String base){
+    int baseLength = base.length();
+    if (str.length() % baseLength != 0){
+        return false; 
+        }
+    int times = str.length() / baseLength; 
+    StringBuilder repeated = new StringBuilder();
+    for (int i = 0; i < times; i++){
+        repeated.append(base);
+        }
+    return str.equals(repeated.toString());
+    }
+    private int gcd(int a, int b){
+        while (b != 0){
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+}
