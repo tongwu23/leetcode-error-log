@@ -1,0 +1,49 @@
+class Solution {
+    public String reverseVowels(String s) {
+    //change the string to a character array 
+    char[] word = s.toCharArray();
+    int start = 0;
+    int end = s.length()-1;
+    String vowel = "aeiouAEIOU";
+    while (start < end || vowel.indexOf(word[start] == -1)){ // syntax problem 
+        start ++; 
+    }
+    while (start < end || vowel.indexOf(word[end] == -1)){ // syntax problem 
+        end ++; //should be end -- 
+    }
+    char temp = word(start); //不要用括号，要用[]
+    word(start) = word(end);
+    word(end) = temp; 
+
+    start ++;
+    end ++; // same thing here 要用—-
+    String result = new String (word);
+    return result; 
+    }
+}
+Corrected Version of GPT:
+class Solution {
+    public String reverseVowels(String s) {
+    //change the string to a character array 
+    char[] word = s.toCharArray();
+    int start = 0;
+    int end = s.length()-1;
+    String vowel = "aeiouAEIOU";
+    while (start < end){
+        while (start < end && vowel.indexOf(word[start]) == -1){
+            start ++; 
+        }
+        while (start < end && vowel.indexOf(word[end]) == -1){
+            end --; 
+        }
+        char temp = word[start];
+        word[start]= word[end];
+        word[end]= temp; 
+
+        start ++;
+        end --;
+    }
+    String result = new String (word);
+    return result; 
+    }
+}
