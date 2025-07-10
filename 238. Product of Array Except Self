@@ -1,0 +1,33 @@
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int n = nums.length;
+        int [] answer = new int [n]; 
+        answer [0] = 1; 
+        for (int i = 1; i < n; i++){
+            answer [i] = answer [i - 1] * answer [i - 2];
+        }
+        answer [n] = answer * 1; 
+        for (int i = n; i > 1; i--){
+            int suffix = nums [i];
+            answer [i] = answer * suffix; 
+        }
+    return answer; 
+    }
+}
+GPT corrected version : 
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int n = nums.length;
+        int [] answer = new int [n]; 
+        answer [0] = 1; 
+        for (int i = 1; i < n; i++){
+            answer [i] = answer [i - 1] * nums [i - 1];
+        }
+        int suffix = 1; 
+        for (int i = n-1; i >= 0; i--){
+            answer [i] = answer[i] * suffix; 
+            suffix = suffix * nums[i];
+        }
+    return answer; 
+    }
+}
