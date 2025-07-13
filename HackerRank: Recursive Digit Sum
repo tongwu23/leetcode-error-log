@@ -1,0 +1,55 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'superDigit' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts the following parameters:
+#  1. STRING n
+#  2. INTEGER k
+#
+
+def superDigit(n, k):
+    temp_num = 0
+    while (n / 10) > 1 : 
+        for i in range(k) : 
+            temp_num = number % (10 * i)
+            new_n += temp_num
+        while (n != 0) : 
+            n / 10
+            k++
+    n = new_n
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    first_multiple_input = input().rstrip().split()
+
+    n = first_multiple_input[0]
+
+    k = int(first_multiple_input[1])
+
+    result = superDigit(n, k)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
+我们只写define的部分 剩下的不归我们管
+def superDigit(n, k):
+    def helper(s):
+        if len(s) == 1:
+            return int (s) 
+        total_num = sum(int(char) for char in s)
+        return helper(str(total_num))
+    
+    initial_sum = sum(int(char) for char in n) * k
+    return helper(str(initial_sum))
+# if I only return str total sum -- it will only do the recursive thing once. 
+
+
