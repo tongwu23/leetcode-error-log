@@ -1,0 +1,103 @@
+
+
+def binomial_tree_slow(S0, u, d, K, r, n):
+    dt = T/n
+    q = ((1 + r) - d) / (u - d) 
+    disc = 1 / (1 + r)  
+    
+    # initialize asset prices at maturity - Time Step N 
+    S = [0.0] * (n + 1)
+    S[0] = S0 * d ** n
+    for j in range (1, n+1):
+        S[j] = S[j-1] * (u/d)
+        
+    # initialize option values at maturity C[N]    
+    C =[0.0] * (n + 1)
+    for j in range (n+1):
+        C[j] = max(S[j] - K, 0)
+    option_tree = [C[:]]
+    
+    # Backward Propagation
+    
+    for i in range(n-1, -1, -1):
+        for j in range(i+1):
+            C[j] = disc * (q * C[j+1] + (1-q) * C[j])
+        option_tree.insert(0, C[:i + 1])
+    return option_tree
+
+
+if __name__ == "__main__":
+    # Sample input format: 100 2 0.5 120 0.25 3
+    inputs = input().split()
+    S0 = float(inputs[0])
+    u = float(inputs[1])
+    d = float(inputs[2])
+    K = float(inputs[3])
+    r = float(inputs[4])
+    n = int(inputs[5])
+    T = 1  # You can adjust this if needed
+
+    tree = binomial_tree_slow(S0, u, d, K, r, n)
+
+    for row in tree:
+        for val in row:
+            print(f"{val:.6f}", end=' ')
+        print()
+
+GPT corrected Version 
+
+def binomial_tree_slow(S0, u, d, K, r, n):
+    qu = ((1 + r) - d) / (u - d)
+    qd = 1 - qu
+
+    # build full stock-price tree
+    stock_levels = [[S0]]
+    for _ in range(n):
+        prev = stock_levels[-1]
+        new = []
+        for price in prev:
+            new.append(price * u)  # up first
+            new.append(price * d)  # then down
+        stock_levels.append(new)
+
+    # terminal payoffs
+    option_levels = []
+    last_prices = stock_levels[-1]
+    option_levels.append([max(p - K, 0) for p in last_prices])
+
+    # backward induction
+    for lvl in range(n - 1, -1, -1):
+        child_vals = option_levels[0]
+        curr = []
+        for i in range(len(stock_levels[lvl])):
+            up_val = child_vals[2 * i]
+            down_val = child_vals[2 * i + 1]
+            v = (qu * up_val + qd * down_val) / (1 + r)
+            curr.append(v)
+        option_levels.insert(0, curr)
+        
+    # flatten
+    flat = []
+    for lvl in option_levels:
+        flat.extend(lvl)
+    return flat
+
+if __name__ == "__main__":
+    data = input().split()
+    S0 = float(data[0])
+    u  = float(data[1])
+    d  = float(data[2])
+    K  = float(data[3])
+    r  = float(data[4])
+    n  = int(data[5])
+
+    result = binomial_tree_slow(S0, u, d, K, r, n)
+
+    i = 0
+    row_len = 1
+    while i < len(result):
+        for j in range(row_len):
+            print("%.6f" % result[i + j], end=" ")
+        print()
+        i += row_len
+        row_len *= 2      
