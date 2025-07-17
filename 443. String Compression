@@ -1,0 +1,79 @@
+class Solution {
+    public int compress(char[] chars) {
+        if (chars.length == 1){
+            return 1;
+        }else{
+            StringBuilder newString = new StringBuilder 
+            for (int i = 1; i < chars.length; i++){
+                while (chars[i]] == chars[i-1]){
+                    int count = 1; 
+                    count ++; 
+                    i++; 
+                }
+            newString.append(chars.charAt[i]);
+            if (count >= 2){
+                newString.append(count); 
+                }
+            }
+        }
+        returnString = newString.toString(); 
+        return newString; 
+    }
+}
+
+Corrected by GPT: 
+第一遍错误： class Solution {
+    public int compress(char[] chars) {
+        if (chars.length == 1){
+            return 1;
+        }else{
+            StringBuilder newString = new StringBuilder(); 
+            int count = 1;  
+            for (int i = 1; i < chars.length; i++){
+                if (chars[i] == chars[i-1]){
+                    count ++; 
+                }else { 
+                    newString.append(chars[i-1]);
+                    if ( count >= 2){
+                       newString.append(count);  
+                    }
+                    count = 1; 
+                }
+        }
+        String returnString = newString.toString(); 
+        return returnString.length(); 
+        }
+    }
+}
+第二遍： 
+class Solution {
+    public int compress(char[] chars) {
+        if (chars.length == 1){
+            return 1;
+        }else{
+            StringBuilder newString = new StringBuilder(); 
+            int count = 1;  
+            for (int i = 1; i < chars.length; i++){
+                if (chars[i] == chars[i-1]){
+                    count ++; 
+                }else { 
+                    newString.append(chars[i-1]);
+                    if ( count > 1){
+                       newString.append(count);  
+                    }
+                    count = 1; 
+                }
+        }
+        newString.append(chars[chars.length-1]);
+        if (count > 1){
+            newString.append(count);
+        }
+        // copy back
+        int newLen = newString.length();
+        for (int i = 0; i < newLen; i++) {
+            chars[i] = newString.charAt(i);
+        }
+        return newLen;
+        }
+    }
+}
