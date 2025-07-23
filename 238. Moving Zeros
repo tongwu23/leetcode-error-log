@@ -1,0 +1,35 @@
+
+class Solution {
+    public void moveZeroes(int[] nums) {
+        List <int> listName = Array.asList(nums);
+        count = nums.length;
+        while (nums[i] != 0){
+            listName.add(nums[i]);
+            i++;
+            count --;
+        }
+        int number = 0; 
+        while (number < count){
+            listName.add(0);
+            count ++; 
+        }
+        Int[] arr = List.toArray(listName);
+        return arr; 
+    }
+}
+Corrected by ChatGPT:
+class Solution {
+    public void moveZeroes(int[] nums) {
+        int insertPo = 0;
+        for (int num : nums){
+            if (num != 0){
+                nums[insertPo] = num;
+                insertPo ++; 
+            }
+        }
+            while (insertPo < nums.length){
+                nums [insertPo] = 0;
+                insertPo ++;
+            }
+    }
+}
