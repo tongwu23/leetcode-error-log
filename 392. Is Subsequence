@@ -1,0 +1,34 @@
+class Solution {
+    public boolean isSubsequence(String s, String t) {
+        if (t.indexOf(s) != -1){                // ❌ indexOf(String) checks for full substring, not subsequence!
+            int i = 0;
+            int j = 0;
+            while (i < s.length() && j < t.length()){
+                if (s.charAt(i) == t.charAt(j)){
+                    i++;
+                }
+                j++;
+                if (i = s.length()){             // ❌ assignment (=) instead of comparison (==)
+                    return true; 
+                }
+            }
+        } else {
+            return false; 
+        }
+    }
+}
+Corrected by GPT:
+class Solution {
+    public boolean isSubsequence(String s, String t) {
+        int i = 0, j = 0;
+
+        while (i < s.length() && j < t.length()) {
+            if (s.charAt(i) == t.charAt(j)) {
+                i++;
+            }
+            j++;
+        }
+
+        return i == s.length();  // If we matched all of s, it's a subsequence
+    }
+}
