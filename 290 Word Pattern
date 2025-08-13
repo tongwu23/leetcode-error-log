@@ -1,0 +1,46 @@
+class Solution {
+    public boolean wordPattern(String pattern, String s) {
+        String [] words = s.split(" "); // this is an array of words
+        int s_length = words.length;
+        if (pattern.length() != s_length) return false; 
+        Map <Character, String> ps = new HashMap<>();
+        Map <String, Character> sp = new HashMap<>();
+        for (int i = 0; i < s_length; i++){
+            char a = pattern.charAt(i);
+            String b = words[i];
+            if (ps.containsKey(a)){
+                if (ps.get(a) != b) return false; 
+            }
+            else{
+                if (sp.containsKey(b)) return false;
+                ps.put(a,b);
+                sp.put(b,a);
+            }
+        }
+        return true; 
+    }
+}
+Corrected by GPT:
+// to compare the string content, you must use equals instead of == or != 
+class Solution {
+    public boolean wordPattern(String pattern, String s) {
+        String [] words = s.split(" "); // this is an array of words
+        int s_length = words.length;
+        if (pattern.length() != s_length) return false; 
+        Map <Character, String> ps = new HashMap<>();
+        Map <String, Character> sp = new HashMap<>();
+        for (int i = 0; i < s_length; i++){
+            char a = pattern.charAt(i);
+            String b = words[i];
+            if (ps.containsKey(a)){
+                if (!ps.get(a).equals(b)) return false; 
+            }
+            else{
+                if (sp.containsKey(b)) return false;
+                ps.put(a,b);
+                sp.put(b,a);
+            }
+        }
+        return true; 
+    }
+}
