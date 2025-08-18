@@ -1,0 +1,43 @@
+class Solution {
+    public List<String> summaryRanges(int[] nums) {
+        for (int a = 0, int b = 1; a < nums.length - 1; a++, b++){
+            int start = 0; 
+            if (nums[b] - nums[a] == 1){
+                count ++; 
+                start = nums[a - count]; 
+                end = b; 
+            }else {
+                count = 0; 
+            }
+        }
+    }
+}
+
+class Solution {
+    public List<String> summaryRanges(int[] nums) {
+        int n = nums.length; 
+        List<String> ans = new ArrayList<>();
+        for (int i = 0; i < n;){
+            int j = i; 
+            int start = nums[i];
+            for (; j + 1 < n; j++){
+                if (nums[j+1] == nums[j]+1){
+                    continue; 
+                }
+                else{
+                    break; 
+                }
+            }
+            int end = nums[j]; 
+ 
+            if (end == start){
+            ans.add(String.valueOf(start)); // change integer to string 
+            }
+            else{
+            ans.add(start + "->" + end); 
+            }
+            i = j + 1;
+        }
+    return ans; 
+    }
+}
