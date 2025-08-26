@@ -1,0 +1,42 @@
+class Solution {
+    public boolean isValid(String s) {
+        Stack <Character> stack = new Stack<>();
+        Map <Character, Character> mapping = new Hashmap<>(); //这里 it should be HashMap
+        mapping.put('(',')');
+        mapping.put('[',']');
+        mapping.put('{','}');
+
+        for (char c in s.toArray()){ // should be char c : s.toCharArray()
+            if (mapping.containValue(c)){
+                stack.push(c);
+            }else if (mapping.containKey(c)){
+                if (stack.isEmpty() || mapping.contain(c) != stack.pop()) // this should be get 
+                // pop out the last character before the c 
+                return false; 
+            }
+        }
+        return stack.isEmpty();
+    }
+}
+Corrected by GPT: 
+class Solution {
+    public boolean isValid(String s) {
+        Stack <Character> stack = new Stack<>();
+        Map <Character, Character> mapping = new HashMap<>();
+        mapping.put(')','(');
+        mapping.put(']','[');
+        mapping.put('}','{');
+
+        for (char c : s.toCharArray()){
+            if (mapping.containsValue(c)){
+                stack.push(c);
+            }else if (mapping.containsKey(c)){
+                if (stack.isEmpty() || mapping.get(c) != stack.pop()){
+                // pop out the last character before the c 
+                    return false; 
+                }
+            }
+        }
+        return stack.isEmpty();
+    }
+}
