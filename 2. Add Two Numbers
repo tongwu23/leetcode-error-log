@@ -1,0 +1,74 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        int num1 = 0 ;
+        int num2 = 0 ;
+
+        for (int i : l1){
+            int curr1 = l1.getLast(); 
+            if (l1.size == 1){
+                num1 += curr1; 
+            }
+            else{
+                num1 += curr1 * (10 ** (l1.size() - 1));
+                l1.removeLast();
+            }     
+        }
+
+        for (int j : l2){
+            int curr2 = l2.getLast(); 
+            if (l2.size == 1){
+                num1 += curr2; 
+            }
+            else{
+                num1 += curr2 * (10 ** (l2.size() - 1));
+                l2.removeLast();
+            }     
+        }
+        int total_num = num1 + num2; 
+        String str = Integer.toArray(total_num); 
+        LinkedList<Character> l3 = new LinkedList<>();
+
+        for (int k = 0; k < str.length(); k++){
+            l3.addLast(str[k]); 
+        }
+    return l3; 
+    }
+} 
+
+Chat GPT corrected Version 
+
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode ();
+        ListNode res = dummy; 
+        int total = 0;
+        int carry = 0; 
+
+        while (l1 != null || l2 != null || carry != 0){
+            total = carry; 
+            if (l1 != null){
+                total += l1.val; 
+                l1 = l1.next; 
+            }
+            if (l2 != null){
+                total += l2.val; 
+                l2 = l2.next;
+            }
+            int digit = total % 10; 
+            carry = total / 10; 
+            dummy.next = new ListNode(digit); 
+            dummy = dummy.next;
+        }
+        return res.next; 
+    }
+}
