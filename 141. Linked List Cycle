@@ -1,0 +1,33 @@
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        ListNode fast = head; 
+        ListNode slow = head; 
+        while (fast.next != null && slow.next != null){ // compare fast and fast.next
+      如果 fast == null，那么 fast.next 就会报错。
+      如果 fast.next == null，那么 fast.next.next 也会报错。
+            fast = fast.next.next; 
+            slow = slow.next; 
+        }
+        if (fast.val == slow.val){ // you should compare the node rather than compare the value. same value might on different nodes 
+            return true; 
+        }
+    return false; 
+    }
+}
+Corrected by GPT:
+
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        if (head == null || head.next == null) return false; 
+        ListNode fast = head; 
+        ListNode slow = head; 
+        while (fast.next != null && fast != null){
+            fast = fast.next.next; 
+            slow = slow.next; 
+            if (fast == slow){
+            return true; 
+            }
+        }
+    return false; 
+    }
+}
