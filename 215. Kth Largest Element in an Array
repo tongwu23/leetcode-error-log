@@ -1,0 +1,25 @@
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+        for (int num : nums){
+            minHeap.add(num); 
+            while(minHeap.size() > k){
+                minHeap.pop(); // minHeap 只有poll, 没有pop
+            }
+        }
+    return minHeap.peek(); 
+    }
+}
+Corrected by GPT;
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+        for (int num : nums){
+            minHeap.add(num); 
+            if(minHeap.size() > k){
+                minHeap.poll();
+            }
+        }
+    return minHeap.peek(); 
+    }
+}
