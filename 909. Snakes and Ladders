@@ -1,0 +1,63 @@
+class Solution {
+    public int snakesAndLadders(int[][] board) {
+        int n = board.length(); 
+        int[] min_rolls = new int [n * n+1]; 
+        Array.fill(min_rolls, -1); 
+        Queue <Integer> q = new LinkedList<>();  
+        q.offer(1); 
+        while (!q.isEmpty()){
+            int x = q.poll(); 
+            for (int i = 0; i <= 6 && x+i < n * n; i++){
+                int t = x +i ;
+                int row = (t-1) / n; 
+                int col = (t-1) % n; 
+                int r = n - 1 - row; 
+                int c = (col % 2 != 0 ? col: n - 1- col); 
+                int v = board [r] [c]; 
+                int y = (v > 0 ? v : t); 
+                if (y == n * n){
+                    return min_rolls[x] + 1; 
+                }
+                if (min_rolls[y] == -1){
+                    min_rolls[y] = min_rolls[x] + 1; 
+                    q.offer(y); 
+                }
+            }
+        }
+    }
+}
+
+Corrected by ChatGPT 
+import java.util.Arrays;
+class Solution {
+    public int snakesAndLadders(int[][] board) {
+        int n = board.length; // length shoud not have () for 2d array
+        int[] min_rolls = new int [n * n+1]; 
+        Arrays.fill(min_rolls, -1); // arrays.fill 
+        Queue <Integer> q = new LinkedList<>(); 
+        min_rolls[1] = 0; // have a start point so that not all the points are -1 
+        q.offer(1);
+        while (!q.isEmpty()){
+            int x = q.poll(); 
+            for (int i = 1; i <= 6 && x+i <= n * n; i++){
+                // the dice started from 1; 
+                int t = x +i ;
+                int row = (t-1) / n; 
+                int col = (t-1) % n; 
+                int r = n - 1 - row; 
+                int c = (row % 2 == 1) ? (n - 1 - col) : col; 
+                // flip when the row is odd, not the column
+                int v = board [r] [c]; 
+                int y = (v > 0) ? v : t; 
+                if (y == n * n){
+                    return min_rolls[x] + 1; 
+                }
+                if (min_rolls[y] == -1){
+                    min_rolls[y] = min_rolls[x] + 1; 
+                    q.offer(y); 
+                }
+            }
+        }
+        return -1; 
+    }
+}
