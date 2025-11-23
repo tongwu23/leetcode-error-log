@@ -1,0 +1,18 @@
+import pandas as pd
+
+def find_customers(customers: pd.DataFrame, orders: pd.DataFrame) -> pd.DataFrame:
+    # merge two tables with a left join on 'id' and 'customerId'
+    merge_table = customer.merge(orders, how = left, left_on = 'id', right_on = 'customerId')
+    # create a mask which "is na"
+    mask = merge_table['customerId'].isna()
+    # filter a row with we use the boolean mask
+    result = merge_table[mask]
+    # select only the name column and rename it 
+    result = result[['name']].rename(columns = {'name':'Customers'})
+    return result
+
+-- the customer.merge should be customers
+-- how = 'left'
+
+
+
