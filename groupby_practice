@@ -1,0 +1,24 @@
+有一个表 orders，包含：
+
+order_date: 订单日期（到天）
+
+revenue: 该订单金额
+
+要求：
+
+按天聚合出每天的 total revenue
+
+再算每一天的 过去 7 天滚动平均 revenue（包括当天，比如今天窗口是“今天 + 前 6 天”）
+
+输出列：order_date, daily_revenue, rolling_7d_revenue（保留两位小数即可）
+
+import pandas as pd
+
+def rolling_7d_revenue(orders: pd.DataFrame) -> pd.DataFrame:
+    df = orders.copy()
+    df['order_date'] = pd.to_datetime(df['order_date'])
+    daily = df.groupby('order_date', as_index = False)
+            ['revenue'].sum().rename(columns = {'revenue':'daily_revenue'})
+    df = daily.sort_values('order_date')
+    df['rolling_7d_revenue'] = df.['daily_revenue'].rolling(window = 7, min_period = 1).mean()
+    return df[['order_date', 'daily_revenue', 'rolling_7d_revenue']]
